@@ -1,4 +1,5 @@
-# A fully decentralized anonymous network that defends against global traffic analysis attacks
+# DAENet
+DAENet is a fully decentralized anonymous network that can defend against global traffic analysis attacks even in packet loss and targeted DoS scenarios. It is accepted in TDSC.
 
 ## Build / Deploy
 1. enter the script dir and pull the remote module
