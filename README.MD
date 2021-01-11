@@ -1,3 +1,4 @@
+# A fully decentralized anonymous network that defends against global traffic analysis attacks
 
 ## Build / Deploy
 1. enter the script dir and pull the remote module
