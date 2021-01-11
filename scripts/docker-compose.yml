@@ -1,0 +1,34 @@
+version: "3.7"
+
+networks:
+  anop2p:
+    driver: overlay
+    attachable: true
+    ipam:
+      config:
+        - subnet: ${SUBNET}.0.0/16
+
+services:
+  master:
+    image: ${REGISTRY}/${IMAGE}:${VERSION}
+    environment:
+      ROLE: MASTER
+      STANDALONE: STANDALONE
+    networks:
+      anop2p:
+        ipv4_address: ${MASTER}
+
+  slave:
+    image: ${REGISTRY}/${IMAGE}:${VERSION}
+    deploy:
+      replicas: ${SLAVES_NUM}
+    environment:
+      ROLE: SLAVE
+      STANDALONE: STANDALONE
+      MASTER_IP: ${MASTER}
+      MASTER_PORT: 3010
+    depends_on:
+      - master
+    networks:
+      - anop2p
+    # commond: ["-peer_ip=127.0.0.1", "--peer_port=3010"]

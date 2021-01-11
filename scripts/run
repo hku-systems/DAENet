@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# bootstrap port
+bootstrap_port=4000
+bootstrap_ip=127.0.0.1
+n=20
+
+if [ "$1" == "-h" ]
+then
+	echo -e "./run num_of_instances bootstrap_ip bootstrap_port\ndefault: bootstrap=$bootstrap_ip:$bootstrap_port $n"
+	exit
+fi
+
+if [ $# -ge 1 ]
+then
+	n=$1
+fi
+
+if [ $# -ge 2 ]
+then
+	bootstrap_ip=$2
+	bootstrap_port=$3
+fi
+
+
+echo "wait" > wait_in
+
+for i in $(seq -f %02g 1 $n)
+do
+	nohup ../build/AnonymousP2P -i 0.0.0.0 -p 40$i -l $bootstrap_ip -m $bootstrap_port >$i.log < wait_in 2>&1&
+done
